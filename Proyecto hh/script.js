@@ -26,7 +26,7 @@ form.addEventListener("submit", async (e) => {
         if (!respuesta.ok) {
             alert("Error al guardar: " + texto);
             console.error(texto);
-            return;
+            
         }
 
         // 2. Enviar correo con EmailJS
