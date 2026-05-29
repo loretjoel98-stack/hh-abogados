@@ -1,5 +1,5 @@
 export async function onRequest(context) {
-    const { request, env } = context;
+    const { request, env: { DB } } = context;
 
     if (request.method !== "POST") {
         return new Response("Método no permitido", { status: 405 });
@@ -8,9 +8,9 @@ export async function onRequest(context) {
     try {
         const datos = await request.json();
 
-        await env.DB.prepare(`
+        await DB.prepare(`
             INSERT INTO contactos
-            (nombre, correo, telefono, area, mensaje)
+            (nombre, correo, "teléfono", "área", mensaje)
             VALUES (?, ?, ?, ?, ?)
         `)
         .bind(
@@ -22,9 +22,9 @@ export async function onRequest(context) {
         )
         .run();
 
-        return new Response("Guardado correctamente", { status: 200 });
+        return new Response("Guardado correctamente");
 
     } catch (error) {
-        return new Response("Error del servidor: " + error.message, { status: 500 });
+        return new Response(error.message, { status: 500 });
     }
 }
