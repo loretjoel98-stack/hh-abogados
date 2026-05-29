@@ -12,22 +12,7 @@ form.addEventListener("submit", async (e) => {
     };
 
     try {
-        // 1. Guardar en Cloudflare D1
-        const respuesta = await fetch("contacto", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(datos)
-        });
-
-        const texto = await respuesta.text();
-
-        if (!respuesta.ok) {
-            alert("Error al guardar: " + texto);
-            console.error(texto);
-            
-        }
+      
 
         // 2. Enviar correo con EmailJS
         await emailjs.send("service_81xwbbh", "template_nmcnnfh", {
